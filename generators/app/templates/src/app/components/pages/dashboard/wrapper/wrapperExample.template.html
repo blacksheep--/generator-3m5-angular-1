@@ -1,0 +1,14 @@
+<label>
+	Custom wrapper for select
+
+	<simple-select
+		options="$ctrl.options"
+		ng-model="$ctrl.selectedValue"
+		ng-required="true"
+	    parent-changed="$ctrl.onSelectChanged(value)"
+	></simple-select>
+</label>
+
+<div ng-if="$ctrl.selectedValue">
+	Selected inside of wrapper: {{ $ctrl.selectedValue }}
+</div>

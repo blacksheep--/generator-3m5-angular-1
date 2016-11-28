@@ -1,0 +1,13 @@
+<label>Click me</label>
+<button
+	type="button"
+	class="button success"
+    ng-click="$ctrl.onCreatePostClicked()"
+    button-spinner="$ctrl.loadingPost"
+>
+	<span>Create new post</span>
+</button>
+
+<div ng-if="$ctrl.response" class="callout success">
+	Response: {{ $ctrl.response }}
+</div>

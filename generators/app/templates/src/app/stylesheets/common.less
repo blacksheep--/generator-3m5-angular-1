@@ -1,0 +1,64 @@
+@import (inline) "../../../node_modules/normalize.css/normalize.css";
+/*
+Foundation is used only for demo purposes, to make all those tables and buttons look good.
+Remove it from real project
+*/
+@import (inline) "./foundation.css";
+/*
+It is a good idea to keep css modular like js
+Do not make single gigantic css file, split everything
+*/
+@import "./vars";
+@import "./forms";
+
+/*
+---------------------------------
+*/
+* {
+	outline: none;
+	box-sizing: border-box;
+}
+
+html {
+	overflow-y: scroll;
+}
+
+.loading {
+	display: none;
+	width: 50px;
+	height: 50px;
+	background: url('~assets/images/loading.gif') no-repeat center;
+	color: #fff;
+}
+
+body.is--loading {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	ui-view {
+		display: none;
+	}
+	.loading {
+		display: block;
+	}
+}
+
+.app-container {
+	margin: 30px auto;
+	max-width: 1280px;
+}
+
+@keyframes rotating {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.button-spinner {
+	display: inline-block;
+	margin-left: 10px;
+	animation: rotating 1s linear infinite;
+}

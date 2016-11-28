@@ -1,0 +1,16 @@
+// Some styling for invalid form elements
+.form {
+	.ng-invalid.ng-touched {
+		border-color: @validation;
+	}
+	&.ng-submitted {
+		input.ng-invalid {
+			border-color: @validation;
+		}
+	}
+}
+
+.required {
+	font-weight: bold;
+	color: @validation;
+}

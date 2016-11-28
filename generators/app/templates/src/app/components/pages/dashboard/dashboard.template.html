@@ -1,0 +1,20 @@
+<!--
+This is how you include components and pass some variables
+IMPORTANT!
+camelCase doesn't work for component names and attributes
+-->
+<app-header some-passed-data="$ctrl.hello + ' world'"></app-header>
+
+<div class="app-container">
+	<navigation></navigation>
+
+	<br><br>
+
+	<section class="callout">
+		<!--
+		Nested routing
+		https://github.com/angular-ui/ui-router/wiki/Nested-States-%26-Nested-Views
+		-->
+		<ui-view></ui-view>
+	</section>
+</div>

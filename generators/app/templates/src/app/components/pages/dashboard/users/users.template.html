@@ -1,0 +1,107 @@
+<table>
+	<thead>
+	<tr>
+		<th>Avatar</th>
+		<th>ID</th>
+		<th>Name</th>
+	</tr>
+	</thead>
+	<tbody>
+
+	<!--Simple ng-repeat example-->
+	<tr ng-repeat="user in $ctrl.users">
+		<td style="width: 100px;">
+			<img ng-src="{{ user.avatar }}"  style="width: 50px;">
+		</td>
+		<td>{{ user.id }}</td>
+		<td>{{ user.first_name }} {{ user.last_name }}</td>
+	</tr>
+	</tbody>
+</table>
+
+<!--This block is hidden when addingMode is truthy-->
+<div ng-hide="$ctrl.addingMode">
+	<!--When element has many different attributes good practice is to display each of them on new line-->
+	<a
+		class="secondary button"
+		title="{{ 'USERS.ADD' | translate }}"
+		ng-click="$ctrl.onUserAddClicked()"
+	>
+		<!--This is how angular-translate can be used-->
+		{{ 'USERS.ADD' | translate }}
+	</a>
+</div>
+
+<!--This block is visible when addingMode is truthy-->
+<div ng-show="$ctrl.addingMode">
+
+	<!--
+		More about angular forms and validation:
+		https://docs.angularjs.org/guide/forms
+		-->
+
+	<form
+		novalidate
+		class="form"
+		name="myForm"
+		ng-submit="$ctrl.onUserSubmitted()"
+	>
+		<h3>Adding new user</h3>
+
+		<label>
+			Name <span class="required">*</span>
+			<input type="text" name="name" ng-model="$ctrl.user.name" ng-required="true">
+		</label>
+
+		<label>
+			Email <span class="required">*</span> (try invalid mail)
+			<input type="email" name="mail" ng-model="$ctrl.user.email" ng-required="true">
+		</label>
+
+		<!--This box is shown when form is submitted and 'email' validation error of an element with name 'mail' is falsy-->
+		<div class="callout alert" ng-show="myForm.$submitted && myForm.mail.$error.email">
+			Not valid email!
+		</div>
+
+		<label>
+			Age <span class="required">*</span> (try negative age)
+			<input
+				name="age"
+				type="number"
+				step="1"
+				min="1"
+				ng-min="1"
+				ng-model="$ctrl.user.age"
+				ng-required="true"
+			/>
+		</label>
+
+		<!--This box is shown when form is submitted and 'min' validation error of an element with name 'age' is falsy-->
+		<div class="callout alert" ng-show="myForm.$submitted && myForm.age.$error.min">
+			Age cannot be negative or zero
+		</div>
+
+		<label>
+			Website <span class="required">*</span> (try without http/https)
+			<input
+				name="website"
+				type="text"
+				ng-model="$ctrl.user.website"
+				ng-required="true"
+			    pattern="https?\://.+"
+			>
+		</label>
+
+		<!--This box is shown when form is submitted and 'pattern' validation error of an element with name 'website' is falsy-->
+		<div class="callout alert" ng-show="myForm.$submitted && myForm.website.$error.pattern">
+			Not valid website!
+		</div>
+
+		<!--This box is shown when form is submitted and not every required input has data--> 
+		<div class="callout alert" ng-show="myForm.$submitted && myForm.$error.required">
+			Please fill all the inputs
+		</div>
+
+		<button type="submit" class="success button">Submit</button>
+	</form>
+</div>

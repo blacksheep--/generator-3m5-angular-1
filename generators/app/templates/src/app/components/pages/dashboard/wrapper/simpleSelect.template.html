@@ -1,0 +1,11 @@
+<label>
+	<!--Calling ng-change of parent component every time select changed-->
+	<select
+		ng-model="$ctrl.ngModel"
+		ng-required="$ctrl.ngRequired"
+		ng-change="$ctrl.parentChanged({value: $ctrl.ngModel})"
+	>
+		<option value="">Select something..</option>
+		<option ng-repeat="option in $ctrl.options" value="{{ option }}">{{ option }}</option>
+	</select>
+</label>

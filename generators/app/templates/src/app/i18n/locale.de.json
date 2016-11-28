@@ -1,0 +1,6 @@
+{
+	"TITLE": "<%= appName %>",
+	"USERS": {
+		"ADD": "Add user"
+	}
+}

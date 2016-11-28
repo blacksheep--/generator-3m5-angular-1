@@ -1,0 +1,12 @@
+<section class="top-bar">
+	<div class="top-bar-left">
+		<ul class="menu">
+			<li
+				ng-repeat="entry in $ctrl.navigation"
+				ui-sref-active="active"
+			>
+				<a ui-sref="home.dashboard.{{ entry.key }}">{{ entry.label }}</a>
+			</li>
+		</ul>
+	</div>
+</section>
