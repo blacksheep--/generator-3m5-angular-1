@@ -1,1 +1,15 @@
-<button class="button secondary" ng-click="$ctrl.onAppLevelEventClicked()">Emit application-level event</button>
+<button class="button alert" ng-click="$ctrl.onAppLevelEventClicked()">
+	<strong>$rootScope.$emit</strong> - Application-level event
+</button>
+
+<br>
+
+<button class="button secondary" ng-click="$ctrl.onScopeBroadcastClicked()">
+	<strong>$scope.$broadcast</strong> - Notify this and all children components
+</button>
+
+<events-example-child></events-example-child>
+
+<button class="button secondary" ng-click="$ctrl.onScopeEmitClicked()">
+	<strong>$scope.$emit</strong> - Notify this and all parent components
+</button>
