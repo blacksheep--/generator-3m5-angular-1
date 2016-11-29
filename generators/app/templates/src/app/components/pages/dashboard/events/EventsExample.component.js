@@ -1,12 +1,5 @@
 import angular from 'angular';
 
-/*
- !!!!!!!!!!!
- Angular has an event system, but it SHOULD BE USED WITH CAUTION
- Only use this if ALL OTHER methods of communication between components do not work
- !!!!!!!!!!!
- */
-
 export const EventsExample = {
 	template: require('./eventsExample.template.html'),
 	controller: class {
