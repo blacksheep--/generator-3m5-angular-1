@@ -1,9 +1,3 @@
-/* yo:start */
-// <% if (comments) { %>
-//
-// <% } %>
-/* yo:end */
-
 /*
  Polyfill for unsupported browser features, crucial for IE11
  https://babeljs.io/docs/usage/polyfill/

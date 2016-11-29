@@ -39,8 +39,15 @@ module.exports = yeoman.Base.extend({
 		this.copy('.editorconfig', '.editorconfig');
 		this.copy('Gruntfile.js', 'Gruntfile.js');
 		this.copy('package.json', 'package.json');
+		this.copy('src/index.html', 'src/index.html');
+		this.copy('src/index.js', 'src/index.js');
 
-		this.fs.copyTpl(glob.sync(this.templatePath('src/**'), {dot: true}), 'src', this.answers);
+		this.fs.copyTpl(glob.sync(this.templatePath('src/app/**'), {dot: true}), 'src/app', this.answers);
+		this.fs.copyTpl(glob.sync(this.templatePath('src/tests/**'), {dot: true}), 'src/tests', this.answers);
+
+		this.directory('src/assets', 'src/assets');
+
+		this.fs.copyTpl(glob.sync(this.templatePath('conf/**'), {dot: true}), 'conf', this.answers);
 	},
 
 	install: function() {

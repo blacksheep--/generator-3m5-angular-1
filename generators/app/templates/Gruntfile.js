@@ -25,6 +25,9 @@ module.exports = function(grunt) {
 		},
 		// Copy everything from assets folder
 		copy: {
+			options: {
+				processContentExclude: ['**/*.{png,gif,jpg,ico,svg,ttf,eot,woff}']
+			},
 			'assets-dev': {
 				files: [
 					{expand: true, cwd: 'src/', src: ['assets/**'], dest: '.tmp/'},
