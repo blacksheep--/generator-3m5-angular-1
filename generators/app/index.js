@@ -17,15 +17,15 @@ module.exports = yeoman.Base.extend({
 				message: 'With detailed comments?'
 			},
 			{
-				type: 'confirm',
-				name: 'installDependencies',
-				message: 'Install dependencies?'
-			},
-			{
 				type: 'list',
 				name: 'buildSystem',
 				message: 'Which build system do you want to use?',
 				choices: ['Grunt', 'gulp']
+			},
+			{
+				type: 'confirm',
+				name: 'installDependencies',
+				message: 'Install dependencies?'
 			}
 		]).then(function(answers) {
 			this.answers = answers;
