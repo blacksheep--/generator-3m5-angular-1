@@ -1,108 +1,38 @@
-var loginData = require('../app/services/loginData.json');
-
-var hasClass = function(element, cls) {
-	return element.getAttribute('class').then(function(classes) {
-		return classes.split(' ').indexOf(cls) !== -1;
-	});
-};
-
+/*
+ Some example end-to-end tests using Protractor
+ http://www.protractortest.org/
+ */
 describe('app', () => {
-	['electricity'].map(commodity => {
-		it(commodity + ': login and show navigation', () => {
-			if (browser.params.environment == 'dev') {
-				browser.get(`/#/${commodity}`);
-			} else {
-				browser.get(`/eSales/#/${commodity}`);
+	it('should show landing', () => {
+		// Go to frontpage and wait for angular to load
+		browser.get('/');
+		browser.waitForAngular();
 
-				browser.waitForAngular();
-				expect(browser.getTitle()).toMatch('enviaM applicationcontainer');
-				element(by.model('ctrl.loginData.username')).sendKeys(loginData.j_user);
-				element(by.model('ctrl.loginData.password')).sendKeys(loginData.j_password);
-				element(by.css('.enviam-btn-action')).click();
-				browser.sleep(2000);
-			}
+		// Expect title to contain 'Landing' text
+		expect(browser.getTitle()).toContain('Landing');
 
-			expect(browser.getTitle()).toMatch('eSales Strom');
+		// Click on dashboard link
+		element(by.css('[ui-sref="home.dashboard"]')).click();
+	});
+
+	it('should add user', () => {
+		// Add new user
+		element(by.css('.adduser')).click();
+
+		element(by.model('$ctrl.user.name')).sendKeys('Testname');
+		element(by.model('$ctrl.user.email')).sendKeys('testmail@gmail.com');
+		element(by.model('$ctrl.user.age')).sendKeys('25');
+		element(by.model('$ctrl.user.website')).sendKeys('http://example.com');
+
+		element(by.css('.saveuser')).click();
+
+		// Expect the count of users to increase by 1
+		expect(element.all(by.repeater('user in $ctrl.users')).count()).toEqual(4);
+
+		// Expect entered name to appear in the last row of list
+		var addedElement = element.all(by.repeater('user in $ctrl.users')).get(3);
+		addedElement.all(by.css('.name')).getText().then(name => {
+			expect(name[0]).toEqual('Testname');
 		});
-
-		it(commodity + ': show products table after selecting transactionType & gridArea', () => {
-			browser.wait(browser.isElementPresent(by.css('.navigation')), 5000, 'Error: Application loads too long');
-
-			// Select first transactionType
-			var transactionType = element(by.model('$ctrl.persistent.transactionType')).click();
-			var transactionTypeOptions = transactionType.all(by.css('.ui-select-choices-row'));
-			expect(transactionTypeOptions.count()).toBeGreaterThan(0);
-			transactionTypeOptions.get(0).click();
-
-			element(by.model('$ctrl.persistent.gridArea')).isPresent().then(function(result) {
-				// Select first gridArea
-				var gridArea = element(by.model('$ctrl.persistent.gridArea')).click();
-				var gridAreaOptions = gridArea.all(by.css('.ui-select-choices-row'));
-				expect(gridAreaOptions.count()).toBeGreaterThan(0);
-				gridAreaOptions.get(0).click();
-			});
-
-			browser.wait(browser.isElementPresent(by.css('.prodtable')), 5000, 'Error: Products table loads too long');
-			expect(element.all(by.css('.prodtable-entry')).count()).toBeGreaterThan(0);
-
-			expect(browser.isElementPresent(by.css('.countdown'))).toBeTruthy();
-		});
-
-		it(commodity + ': open product details page', () => {
-			// Click on the first
-			element(by.repeater('(key, product) in $ctrl.products').row(0))
-				.element(by.css('.price')).click();
-
-			expect(browser.isElementPresent(by.css('.productdetails'))).toBeTruthy();
-		});
-
-		it(commodity + ': check form validation', () => {
-			// Try submitting without entring 'Leistung'
-			element(by.id('submit')).click();
-			expect(hasClass(element(by.css('.form')), 'ng-submitted')).toBeTruthy();
-			expect(hasClass(element(by.model('$ctrl.demand')), 'ng-invalid')).toBeTruthy();
-
-			// Try submitting when Leistung is too big
-			element(by.model('$ctrl.demand')).sendKeys(123456);
-			expect(hasClass(element(by.model('$ctrl.demand')), 'ng-valid')).toBeTruthy();
-			element(by.id('submit')).click();
-			browser.wait(browser.isElementPresent(by.css('.toast-message')), 5000, 'Error: Demand validation loads too long');
-		});
-
-		it(commodity + ': add product to cart', () => {
-			// Select first settlementUnit if it exists
-			element(by.model('$ctrl.persistent.settlementArea')).isPresent().then(function(result) {
-				if (result) {
-					var settlementArea = element(by.model('$ctrl.persistent.settlementArea')).click();
-					var settlementAreaOptions = settlementArea.all(by.css('.ui-select-choices-row'));
-					settlementAreaOptions.get(0).click();
-				}
-			});
-
-			// Submit form
-			element(by.model('$ctrl.demand')).clear().sendKeys(1.001);
-			element(by.id('submit')).click();
-			browser.wait(browser.isElementPresent(by.css('.orderpreview')), 5000, 'Error: Order preview loads too long');
-		});
-
-		it(commodity + ': details page has information', () => {
-			var firstRow = element.all(by.css('.panel-row')).get(0);
-			expect(firstRow.element(by.css('.panel-row-value')).getInnerHtml()).toBeDefined();
-		});
-
-		it(commodity + ': pin validation when entering wrong pin', () => {
-			element(by.model('$ctrl.pin')).sendKeys(111111);
-			element(by.id('submit')).click();
-
-			browser.wait(browser.isElementPresent(by.css('.toast-message')), 5000, 'Error: Pin validation loads too long');
-
-			expect(element(by.css('.toast-message')).getInnerHtml()).toBe('Die eingegebene PIN ist ungültig.');
-		});
-
-		it(commodity + ': order submission', () => {
-			element(by.model('$ctrl.pin')).clear().sendKeys(123456);
-			element(by.id('submit')).click();
-			browser.wait(browser.isElementPresent(by.css('.orderconfirm')), 5000, 'Error: Order confirmation loads too long');
-		});
-	})
+	});
 });

@@ -49,6 +49,23 @@ module.exports = function(grunt) {
 		clean: {
 			'assets-dev': ['.tmp/assets']
 		},
+		protractor: {
+			options: {
+				configFile: './src/tests/protractor.config.js',
+				keepAlive: true,
+				noColor: false
+			},
+			dev: {
+				options: {
+					args: {
+						baseUrl: 'http://localhost:8080',
+						params: {
+							environment: 'dev'
+						}
+					}
+				}
+			}
+		},
 		// Start all these tasks in parallel
 		concurrent: {
 			target: {
@@ -61,6 +78,8 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask('dev', ['concurrent:target']);
+	grunt.registerTask('tests-dev', ['protractor:dev']);
+
 	grunt.registerTask('dist', ['copy:assets-dist', 'webpack:dist']);
 
 };

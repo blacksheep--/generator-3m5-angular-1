@@ -6,6 +6,11 @@ Remove it from real project
 @import (inline) "./foundation.css";
 @import (inline) "../../../node_modules/ng-dialog/css/ngDialog.min.css";
 @import (inline) "../../../node_modules/ng-dialog/css/ngDialog-theme-default.min.css";
+
+body.ngdialog-open {
+	overflow: initial !important;
+}
+
 /*
 It is a good idea to keep css modular like js
 Do not make single gigantic css file, split everything

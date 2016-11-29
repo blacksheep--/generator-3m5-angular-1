@@ -39,6 +39,7 @@
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-watch": "^1.0.0",
+    "grunt-protractor-runner": "^4.0.0",
     "grunt-webpack": "^1.0.18",
     "html-loader": "^0.4.4",
     "html-webpack-plugin": "^2.24.1",

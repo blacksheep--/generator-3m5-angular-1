@@ -14,7 +14,7 @@
 			<img ng-src="{{ user.avatar }}"  style="width: 50px;">
 		</td>
 		<td>{{ user.id }}</td>
-		<td>{{ user.first_name }} {{ user.last_name }}</td>
+		<td class="name">{{ user.name }}</td>
 	</tr>
 	</tbody>
 </table>
@@ -23,7 +23,7 @@
 <div ng-hide="$ctrl.addingMode">
 	<!--When element has many different attributes good practice is to display each of them on new line-->
 	<a
-		class="secondary button"
+		class="secondary button adduser"
 		title="{{ 'USERS.ADD' | translate }}"
 		ng-click="$ctrl.onUserAddClicked()"
 	>
@@ -102,6 +102,6 @@
 			Please fill all the inputs
 		</div>
 
-		<button type="submit" class="success button">Submit</button>
+		<button type="submit" class="success button saveuser">Submit</button>
 	</form>
 </div>
