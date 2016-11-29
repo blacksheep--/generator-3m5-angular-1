@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 					aggregateTimeout: 100,
 					poll: 500
 				},
-				contentBase: './tmp'
+				contentBase: './.tmp'
 			},
 			dev: {}
 		},
@@ -52,7 +52,7 @@ module.exports = function(grunt) {
 		// Start all these tasks in parallel
 		concurrent: {
 			target: {
-				tasks: ['copy:assets-dev', 'webpack-dev-server:dev', 'watch:assets'],
+				tasks: ['copy:assets-dev', ['webpack-dev-server:dev', 'watch:assets']],
 				options: {
 					logConcurrentOutput: true
 				}
