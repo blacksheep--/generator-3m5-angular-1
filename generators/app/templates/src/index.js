@@ -15,6 +15,7 @@ import angular from 'angular';
 import 'angular-ui-router';
 import 'angular-ui-router/release/stateEvents';
 import 'angular-translate';
+import 'ng-dialog';
 
 /*
  Localize for german language (currencies, dates, numbers)
@@ -49,6 +50,7 @@ var app = angular.module('app',
 		'ui.router',
 		'ui.router.state.events',
 		'pascalprecht.translate',
+		'ngDialog',
 		components,
 		directives,
 		services,
