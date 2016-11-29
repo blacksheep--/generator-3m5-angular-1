@@ -55,11 +55,11 @@ module.exports = {
 			},
 			{
 				test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-				loader: 'url?limit=10000',
+				loader: 'url?limit=4000',
 			},
 			{
 				test: /\.(png|gif|jpg)$/,
-				loader: 'url-loader?limit=10000'
+				loader: 'url?limit=4000'
 			},
 			{
 				test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
