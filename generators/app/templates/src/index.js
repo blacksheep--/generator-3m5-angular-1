@@ -12,6 +12,7 @@ import 'babel-polyfill';
 
 // All installed libraries must be imported first
 import angular from 'angular';
+import _ from 'underscore';
 import 'angular-ui-router';
 import 'angular-ui-router/release/stateEvents';
 import 'angular-translate';
@@ -74,12 +75,21 @@ app
 	.constant('constants', {
 		SOME_GLOBAL_CONSTANT: 'I am available in everywhere'
 	})
-	.run($rootScope => {
+	/*
+	 Run blocks are the closest thing in Angular to the main method.
+	 A run block is the code which needs to run to kickstart the application.
+	 It is executed after all of the services have been configured and the injector has been created.
+	 */
+	.run(($rootScope, $transitions) => {
 		/*
-		 Run blocks are the closest thing in Angular to the main method.
-		 A run block is the code which needs to run to kickstart the application.
-		 It is executed after all of the services have been configured and the injector has been created.
+		Do something before every route
+		More about router transitions:
+		https://ui-router.github.io/docs/latest/classes/transition.transitionservice.html
 		 */
+		$transitions.onBefore({to: '**'}, function(trans) {
+			console.info('Opening state:', _.last(trans.entering()));
+		});
+
 		$rootScope.isLoading = true;
 	});
 
