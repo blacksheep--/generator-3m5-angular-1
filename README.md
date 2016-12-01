@@ -2,5 +2,5 @@
 
 * Install Yeoman (http://yeoman.io/)
 * I am empty folder use `yo 3m5-angular-1`, it will create project structure and install dependencies
-* Start development server `grunt dev`.
+* Start development server using `grunt dev`.
 * Open http://localhost:8080
