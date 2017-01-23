@@ -1,4 +1,5 @@
 import angular from 'angular';
+import users from './users.json';
 
 export class restService {
 	constructor($http, $rootScope, constants) {
@@ -7,7 +8,10 @@ export class restService {
 	}
 
 	getApplicationUsers() {
-		return this.$http.get('http://reqres.in/api/users').then(response => response.data.data);
+		// Simulate ajax request
+		return new Promise(resolve => {
+			resolve(users);
+		});
 	}
 
 	addPost(request) {

@@ -92,7 +92,7 @@ module.exports = {
 	output: {
 		path: path.join(process.cwd(), '.tmp'),
 		filename: 'index.js',
-		publicPath: 'http://localhost:8080/'
+		publicPath: '/'
 	},
 	resolve: {
 		alias: {
