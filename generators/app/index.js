@@ -34,7 +34,8 @@ module.exports = yeoman.Base.extend({
 
 	writing: function() {
 		this.copy('.babelrc', '.babelrc');
-		this.copy('.gitignore', '.gitignore');
+		this.copy('_gitignore', '.gitignore');
+		this.copy('.npmignore', '.npmignore');
 		this.copy('.jshintrc', '.jshintrc');
 		this.copy('.editorconfig', '.editorconfig');
 		this.copy('Gruntfile.js', 'Gruntfile.js');
