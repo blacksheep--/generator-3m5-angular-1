@@ -28,8 +28,8 @@ module.exports = {
 				loaders: [
 					'style',
 					'css?sourceMap',
+					'postcss',
 					'less?sourceMap',
-					'postcss'
 				]
 			},
 			{
