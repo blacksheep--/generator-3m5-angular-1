@@ -29,6 +29,12 @@ module.exports = {
 					use: [
 						{
 							loader: 'css-loader',
+							options: {
+								minimize: true,
+                                discardComments: {
+									removeAll: true,
+								},
+							}
                         },
 						{
 							loader: 'postcss-loader',
@@ -115,8 +121,19 @@ module.exports = {
 			template: 'src/index.html',
 			inject: true
 		}),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+            	warnings: false,
+                drop_console: true
+			},
+            output: {
+            	comments: false,
+            },
+            mangle: false,
+        }),
 		new ExtractTextPlugin({
 			filename: 'index-[contenthash].css',
+            allChunks: true,
         })
 	],
 	output: {
