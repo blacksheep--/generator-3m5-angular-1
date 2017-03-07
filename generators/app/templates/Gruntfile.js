@@ -14,7 +14,7 @@ module.exports = function(grunt) {
 			options: {
 				webpack: webpackDev,
 				inline: true,
-				keepAlive: true,
+				keepalive: true,
 				watchOptions: {
 					aggregateTimeout: 100,
 					poll: 500

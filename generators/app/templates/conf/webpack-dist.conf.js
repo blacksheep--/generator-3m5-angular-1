@@ -7,82 +7,118 @@ const autoprefixer = require('autoprefixer');
 
 module.exports = {
 	module: {
-		preLoaders: [
-			{
-				test: /\.js$/,
-				exclude: /node_modules/,
-				loader: 'jshint'
-			}
-		],
-		loaders: [
-			{
-				test: /.json$/,
-				loaders: [
-					'json'
-				]
-			},
+		rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                enforce: "pre",
+                use: [
+					{
+						loader: 'jshint-loader',
+						options: {
+                            emitErrors: true,
+                            failOnHint: true
+						}
+                    }
+                ]
+            },
 			{
 				test: /\.(css|less)$/,
-				loader: ExtractTextPlugin.extract({
-					fallbackLoader: 'style',
-					loader: 'css!postcss!less'
+				use: ExtractTextPlugin.extract({
+					fallback: 'style-loader',
+					use: [
+						{
+							loader: 'css-loader',
+                        },
+						{
+							loader: 'postcss-loader',
+							options: {
+								plugins: () => [autoprefixer({
+                                    browsers: [
+                                        '> 1%',
+                                        'iOS >= 8',
+                                        'Safari >= 8',
+                                        'last 2 versions',
+                                        'IE 10'
+                                    ],
+                                    cascade: false
+                                })]
+							}
+                        },
+						{
+							loader: 'less-loader',
+                        },
+					]
 				})
 			},
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
-				loaders: [
-					'babel',
+				use: [
+					'babel-loader',
 					'webpack-strip-block',
-					'ng-annotate',
+					'ng-annotate-loader',
 				]
 			},
 			{
 				test: /.html$/,
-				loaders: [
-					'html'
+				use: [
+					'html-loader',
 				]
 			},
 			{
 				test: /.txt/,
-				loaders: [
-					'raw'
+				use: [
+					'raw-loader',
 				]
 			},
 			{
 				test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-				loader: 'url?limit=10000',
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 1000,
+						}
+                    },
+				]
 			},
 			{
 				test: /\.(png|gif|jpg)$/,
-				loader: 'url-loader?limit=10000'
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 1000,
+                        }
+                    },
+                ]
 			},
 			{
 				test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-				loader: 'file',
+				use: [
+					'file-loader',
+				]
 			}
 		]
 	},
 	plugins: [
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                context: __dirname,
+                failOnError: true,
+            }
+        }),
 		new webpack.DefinePlugin({'process.env.ENV': JSON.stringify('prod')}),
 		new webpack.ProvidePlugin({'moment': 'moment', 'humanizeDuration': 'humanize-duration'}),
-		new webpack.optimize.OccurrenceOrderPlugin(),
 		new HtmlWebpackPlugin({
 			template: 'src/index.html',
 			inject: true
 		}),
-		new ExtractTextPlugin('index-[contenthash].css')
+		new ExtractTextPlugin({
+			filename: 'index-[contenthash].css',
+        })
 	],
-	postcss: () => [autoprefixer({
-		browsers: [
-			'> 1%',
-			'iOS >= 8',
-			'Safari >= 8',
-			'last 2 versions',
-			'IE 10'
-		],
-		cascade: false
-	})],
 	output: {
 		path: path.join(process.cwd(), 'dist'),
 		filename: '[name]-[hash].js'
@@ -97,10 +133,5 @@ module.exports = {
 	entry: {
 		app: ['./src/index']
 	},
-	jshint: {
-		emitErrors: true,
-		failOnHint: true
-	},
-	failOnError: true,
-	bail: true
+    bail: true
 };
