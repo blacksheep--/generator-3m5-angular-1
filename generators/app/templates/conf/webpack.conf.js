@@ -7,56 +7,56 @@ module.exports = {
 	watch: true,
 	module: {
 		rules: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                enforce: "pre",
-                use: [
-                    {
-                        loader: 'jshint-loader',
-                    },
-                    {
-                        loader: 'webpack-strip-block',
-                        options: {
-                            start: 'yo:start',
-                            end: 'yo:end',
-                        }
-                    },
-                ]
-            },
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				enforce: 'pre',
+				use: [
+					{
+						loader: 'eslint-loader',
+					},
+					{
+						loader: 'webpack-strip-block',
+						options: {
+							start: 'yo:start',
+							end: 'yo:end',
+						}
+					},
+				]
+			},
 			{
 				test: /\.(css|less)$/,
 				use: [
 					{
 						loader: 'style-loader'
-                    },
+					},
 					{
 						loader: 'css-loader',
 						options: {
-                            sourceMap: true,
+							sourceMap: true,
 						}
-                    },
+					},
 					{
 						loader: 'postcss-loader',
-                        options: {
-                            plugins: () => [autoprefixer({
-                                browsers: [
-                                    '> 1%',
-                                    'iOS >= 8',
-                                    'Safari >= 8',
-                                    'last 2 versions',
-                                    'IE 10'
-                                ],
-                                cascade: false
-                            })]
-                        }
-                    },
+						options: {
+							plugins: () => [autoprefixer({
+								browsers: [
+									'> 1%',
+									'iOS >= 8',
+									'Safari >= 8',
+									'last 2 versions',
+									'IE 10'
+								],
+								cascade: false
+							})]
+						}
+					},
 					{
 						loader: 'less-loader',
-                        options: {
-                            sourceMap: true,
-                        }
-                    }
+						options: {
+							sourceMap: true,
+						}
+					}
 				]
 			},
 			{
@@ -87,19 +87,19 @@ module.exports = {
 						options: {
 							limit: 100000
 						}
-                    },
+					},
 				]
 			},
 			{
 				test: /\.(png|gif|jpg)$/,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 100000
-                        }
-                    },
-                ]
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 100000
+						}
+					},
+				]
 			},
 			{
 				test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
@@ -110,12 +110,12 @@ module.exports = {
 		]
 	},
 	plugins: [
-        new webpack.LoaderOptionsPlugin({
-            options: {
-                context: __dirname,
-                debug: true,
-            }
-        }),
+		new webpack.LoaderOptionsPlugin({
+			options: {
+				context: __dirname,
+				debug: true,
+			}
+		}),
 		new webpack.DefinePlugin({'process.env.ENV': JSON.stringify('dev')}),
 		new webpack.ProvidePlugin({'moment': 'moment', 'humanizeDuration': 'humanize-duration'}),
 		new webpack.NoEmitOnErrorsPlugin(),

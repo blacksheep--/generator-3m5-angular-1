@@ -1,0 +1,28 @@
+{
+	"extends": "standard",
+	"globals": {
+		"alert": true,
+		"angular": false,
+		"confirm": true,
+		"document": false,
+		"jQuery": false,
+		"kendo": false,
+		"navigator": false,
+		"window": false
+	},
+	"rules": {
+		"comma-dangle": ["error", {
+			"arrays": "only-multiline",
+			"exports": "only-multiline",
+			"functions": "only-multiline",
+			"imports": "only-multiline",
+			"objects": "only-multiline"
+		}],
+		"eol-last": "off",
+		"indent": ["error", "tab"],
+		"no-tabs": "off",
+		"no-useless-constructor": "off",
+		"semi": ["error", "always"],
+		"space-before-function-paren": "off"
+	}
+}

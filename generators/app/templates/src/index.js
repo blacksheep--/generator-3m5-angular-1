@@ -23,7 +23,7 @@ import 'angular-i18n/angular-locale_de';
  https://github.com/webpack/css-loader
  CSS is by default injected into global namespace
  */
-import './app/stylesheets/common.less';
+import './app/stylesheets/main.less';
 
 // Components, services, filters
 import {components} from './app/components/components';
@@ -88,7 +88,5 @@ app
 	});
 
 /* develblock:start */
-{
-	var devOnly = 'Every code inside the "develblock" will be deleted from live build';
-}
+var devOnly = 'Every code inside the "develblock" will be deleted from live build'; // eslint-disable-line no-unused-vars
 /* develblock:end */

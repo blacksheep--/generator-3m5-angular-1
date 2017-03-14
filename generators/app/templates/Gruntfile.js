@@ -5,11 +5,11 @@ module.exports = function(grunt) {
 	require('load-grunt-tasks')(grunt);
 
 	grunt.initConfig({
-		// Compile js/css for live environment
+	// Compile js/css for live environment
 		webpack: {
 			dist: webpackDist
 		},
-		// Start server in dev environment
+	// Start server in dev environment
 		'webpack-dev-server': {
 			options: {
 				webpack: webpackDev,
@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 					aggregateTimeout: 100,
 					poll: 500
 				},
-				contentBase: './.tmp'
+				contentBase: './.tmp',
 			},
 			dev: {}
 		},
@@ -84,5 +84,4 @@ module.exports = function(grunt) {
 	grunt.registerTask('tests-dev', ['protractor:dev']);
 
 	grunt.registerTask('dist', ['copy:assets-dist', 'webpack:dist']);
-
 };

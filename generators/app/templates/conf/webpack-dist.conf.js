@@ -8,20 +8,21 @@ const autoprefixer = require('autoprefixer');
 module.exports = {
 	module: {
 		rules: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                enforce: "pre",
-                use: [
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				enforce: 'pre',
+				use: [
 					{
-						loader: 'jshint-loader',
+						loader: 'eslint-loader',
 						options: {
-                            emitErrors: true,
-                            failOnHint: true
+							emitError: true,
+							failOnWarning: true,
+							failOnError: true,
 						}
-                    }
-                ]
-            },
+					}
+				]
+			},
 			{
 				test: /\.(css|less)$/,
 				use: ExtractTextPlugin.extract({
@@ -31,29 +32,29 @@ module.exports = {
 							loader: 'css-loader',
 							options: {
 								minimize: true,
-                                discardComments: {
+								discardComments: {
 									removeAll: true,
 								},
 							}
-                        },
+						},
 						{
 							loader: 'postcss-loader',
 							options: {
 								plugins: () => [autoprefixer({
-                                    browsers: [
-                                        '> 1%',
-                                        'iOS >= 8',
-                                        'Safari >= 8',
-                                        'last 2 versions',
-                                        'IE 10'
-                                    ],
-                                    cascade: false
-                                })]
+									browsers: [
+										'> 1%',
+										'iOS >= 8',
+										'Safari >= 8',
+										'last 2 versions',
+										'IE 10'
+									],
+									cascade: false
+								})]
 							}
-                        },
+						},
 						{
 							loader: 'less-loader',
-                        },
+						},
 					]
 				})
 			},
@@ -86,19 +87,19 @@ module.exports = {
 						options: {
 							limit: 100000,
 						}
-                    },
+					},
 				]
 			},
 			{
 				test: /\.(png|gif|jpg)$/,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 100000,
-                        }
-                    },
-                ]
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 100000,
+						}
+					},
+				]
 			},
 			{
 				test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
@@ -109,32 +110,32 @@ module.exports = {
 		]
 	},
 	plugins: [
-        new webpack.LoaderOptionsPlugin({
-            options: {
-                context: __dirname,
-                failOnError: true,
-            }
-        }),
+		new webpack.LoaderOptionsPlugin({
+			options: {
+				context: __dirname,
+				failOnError: true,
+			}
+		}),
 		new webpack.DefinePlugin({'process.env.ENV': JSON.stringify('prod')}),
 		new webpack.ProvidePlugin({'moment': 'moment', 'humanizeDuration': 'humanize-duration'}),
 		new HtmlWebpackPlugin({
 			template: 'src/index.html',
 			inject: true
 		}),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-            	warnings: false,
-                drop_console: true
+		new webpack.optimize.UglifyJsPlugin({
+			compress: {
+				warnings: false,
+				drop_console: true
 			},
-            output: {
-            	comments: false,
-            },
-            mangle: false,
-        }),
+			output: {
+				comments: false,
+			},
+			mangle: false,
+		}),
 		new ExtractTextPlugin({
 			filename: 'index-[contenthash].css',
-            allChunks: true,
-        })
+			allChunks: true,
+		})
 	],
 	output: {
 		path: path.join(process.cwd(), 'dist'),
@@ -150,5 +151,5 @@ module.exports = {
 	entry: {
 		app: ['./src/index']
 	},
-    bail: true
+	bail: true
 };

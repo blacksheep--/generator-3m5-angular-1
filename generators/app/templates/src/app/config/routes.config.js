@@ -42,7 +42,7 @@ export function routesConfig($stateProvider, $urlRouterProvider, $locationProvid
 						$rootScope.userId = 123;
 						$rootScope.isLoading = false;
 
-						response.map(u => u.name = u['first_name'] + ' ' + u['last_name']);
+						response.map(u => { u.name = u['first_name'] + ' ' + u['last_name']; });
 
 						return response;
 					});
