@@ -43,7 +43,7 @@ export class MyDirective {
 		 https://docs.angularjs.org/api/ng/function/angular.element
 		 */
 		this.element = element;
-		
+
 		// Let's do something  every time 'currentTime' variable changes
 		scope.$watch('currentTime', () => {
 			this.currentTime = scope.currentTime;
@@ -51,7 +51,7 @@ export class MyDirective {
 			/*
 			 This is kinda bad example, because you can do the same without any DOM manipulation
 			 But imagine you need to inject some crazy D3 chart and angular wrapper is not available
-			  */
+			 */
 			this.element.find('time').html(this.currentTime);
 		});
 	}
